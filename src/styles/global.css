@@ -80,6 +80,11 @@
   .BigAction_textsSeperator__DG3xy {
     display: none;
   }
+  .BigAction_bigAction__1_x13 {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+  }
 }
 
 /* Soundbank project cover: keep phone in frame. */
