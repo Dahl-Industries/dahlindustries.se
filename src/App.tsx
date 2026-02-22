@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Loader from "./components/Loader";
@@ -7,6 +7,14 @@ import Home from "./pages/Home";
 import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import AboutLite from "./pages/AboutLite";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const AppRoutes = () => (
   <Routes>
@@ -23,6 +31,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Loader onComplete={setHasLoaded} />
       {hasLoaded && (
         <Layout state="entered">

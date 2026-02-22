@@ -15,7 +15,7 @@ const HomeProfile: FC = () => (
       <div className={styles.bio}>
         <AnimatedLines
           size={Size.LG}
-          text="DAHL INDUSTRIES IS A COMPANY BUILDING THE NEXT GENERATION OF BUSINESS. DESIGNED AND ENGINEERED IN STOCKHOLM, WE ARCHITECT INTELLIGENT SYSTEMS THAT REDEFINE HOW PHYSICAL SPACES OPERATE."
+          text="DESIGNED AND ENGINEERED IN STOCKHOLM, DAHL INDUSTRIES ARCHITECT INTELLIGENT SYSTEMS THAT REDEFINE HOW PHYSICAL SPACES OPERATE."
         />
         <AnimatedLines
           className={styles.personalInterests}
@@ -28,12 +28,12 @@ const HomeProfile: FC = () => (
       </FadeIn>
       <FadeIn className={styles.advantage}>
         <p>
-          With a foundation in editorial design and journalism, we bring a
-          narrative-driven approach to technical systems.
+          Rooted in editorial design and journalism, this approach brings
+          narrative depth to technical systems.
           <br /> <br />
-          Having led creative efforts as Editor-in-Chief, our founder combines
-          the precision of layout design with robust engineering to build
-          digital products for visionaries and enterprises.
+          Cultivating creative leadership as an Editor-in-Chief translates the
+          precision of layout design and robust engineering into perfectly built
+          digital products.
         </p>
       </FadeIn>
     </SmoothArea>
