@@ -1,0 +1,3 @@
+const styles = {"header":"Header_header__NLhag","stickyHeader":"Header_stickyHeader__noVsD","headerGrid":"Header_headerGrid__HyyCu","header-in":"Header_header-in__5TUbK","title":"Header_title__Bl0RP","currentRole":"Header_currentRole__R_by_","location":"Header_location__1lzeH","navArea":"Header_navArea__nJ_j1","lgNav":"Header_lgNav__9gB6B","mobileNav":"Header_mobileNav__VyyIQ","navLink":"Header_navLink__zAeDp","active":"Header_active__SBcCE","mobileMenu":"Header_mobileMenu__3k2cW","mobileMenuExit":"Header_mobileMenuExit__Z2ttZ"} as const;
+
+export default styles;

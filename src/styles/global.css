@@ -1,0 +1,47 @@
+@import "./original/5e397a01377fa1b9.css";
+@import "./original/8ec94f7de7538308.css";
+@import "./original/6d21de58ca5f42d2.css";
+@import "./original/4e1ca1d29bc34eb4.css";
+@import "./original/d32dfea6a41c8cdf.css";
+@import "./original/bdf8e6950de6a6b4.css";
+
+/* Hero portrait: keep full image visible and aligned to the left by default. */
+.DraggableMaskCover_coverImage__RJn6Q {
+  object-fit: contain;
+  object-position: left 68%;
+}
+
+/* Home about image: match the wide landscape ratio from the reference section. */
+.HomeAbout_coverImageContainer__6m9Do {
+  aspect-ratio: 3 / 2;
+  height: auto;
+  overflow: hidden;
+}
+
+.HomeAbout_coverImage__W_QEE {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: none;
+}
+
+/* Soundbank project cover: keep phone in frame. */
+.Projects_coverImage__ZOH5x {
+  object-position: 65% center;
+}
+
+/* Tighten spacing before the send-message CTA. */
+.SendMessage_sendMessage__OYfSR {
+  padding-top: 60px;
+}
+@media screen and (min-width: 992px) {
+  .SendMessage_sendMessage__OYfSR {
+    padding-top: 140px;
+  }
+}
+@media screen and (min-width: 1380px) {
+  .SendMessage_sendMessage__OYfSR {
+    padding-top: 180px;
+  }
+}

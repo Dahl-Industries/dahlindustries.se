@@ -1,0 +1,2 @@
+export const ANIMATION_DELAY_STEPS = 0.07;
+

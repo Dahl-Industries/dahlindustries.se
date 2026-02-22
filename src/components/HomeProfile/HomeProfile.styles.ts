@@ -1,0 +1,3 @@
+const styles = {"homeProfileContainer":"HomeProfile_homeProfileContainer__7XjL3","homeProfile":"HomeProfile_homeProfile__j72JZ","bio":"HomeProfile_bio__65uVh","personalInterests":"HomeProfile_personalInterests__sYo3_","advantageTitle":"HomeProfile_advantageTitle__1DpnI","advantage":"HomeProfile_advantage__7d1AG","aboutLink":"HomeProfile_aboutLink__CThQH"} as const;
+
+export default styles;

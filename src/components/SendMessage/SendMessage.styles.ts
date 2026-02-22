@@ -1,0 +1,3 @@
+const styles = {"sendMessageContainer":"SendMessage_sendMessageContainer__fBfMs","sendMessage":"SendMessage_sendMessage__OYfSR","titleTwo":"SendMessage_titleTwo__TvQFW","titleThree":"SendMessage_titleThree__eIISc","emailAddress":"SendMessage_emailAddress__1pGDa"} as const;
+
+export default styles;
