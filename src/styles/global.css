@@ -92,17 +92,7 @@
   object-position: 65% center;
 }
 
-/* Tighten spacing before the send-message CTA. */
+/* Unify SendMessage spacing with other sections. */
 .SendMessage_sendMessage__OYfSR {
-  padding-top: 60px;
-}
-@media screen and (min-width: 992px) {
-  .SendMessage_sendMessage__OYfSR {
-    padding-top: 140px;
-  }
-}
-@media screen and (min-width: 1380px) {
-  .SendMessage_sendMessage__OYfSR {
-    padding-top: 180px;
-  }
+  padding: var(--section-vertical-padding) 0;
 }
