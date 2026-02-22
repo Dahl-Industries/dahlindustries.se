@@ -12,7 +12,7 @@ export const PROJECTS: ProjectProps[] = [
     titleTwo: "bank",
     fullTitle: "Soundbank",
     shortDescription:
-      "With Soundbank™, enterprises receive music that is safe to use in public spaces and tailored to each brand experience.",
+      "Soundbank™ delivers fully licensed audio for public spaces, custom-tailored to enhance the brand experience.",
     description:
       "A configuration layer that tailors music mood, scheduling and playback behavior to each venue type and brand identity.",
     client: "Dahl Industries",
