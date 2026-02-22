@@ -20,7 +20,7 @@ const HomeProfile: FC = () => (
         <AnimatedLines
           className={styles.personalInterests}
           size={Size.LG}
-          text="THROUGH OUR FLAGSHIP PRODUCT, SOUNDBANK™, WE ARE REIMAGINING IN-STORE AUDIO BY MERGING SOPHISTICATED DESIGN WITH AUTONOMOUS MUSIC CURATION."
+          text="THROUGH OUR FLAGSHIP PRODUCT, SOUNDBANK™, WE ARE REIMAGINING AUDIO BY MERGING SOPHISTICATED DESIGN WITH AUTONOMOUS CURATION."
         />
       </div>
       <FadeIn className={styles.advantageTitle}>

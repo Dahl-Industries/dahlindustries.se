@@ -1,9 +1,9 @@
 import { useState, FC } from "react";
 
-import SmoothArea from "../SmoothArea";
+import SmoothArea, { ParallaxImage } from "../SmoothArea";
 import AnimatedLines from "../AnimatedLines";
 import BigText from "../BigText";
-import DraggableMaskCover from "../DraggableMaskCover";
+import FadeIn from "../FadeIn";
 import Arrow from "../Arrow";
 import { isSmallScreen } from "../../utils";
 import {
@@ -38,9 +38,19 @@ const HomeHero: FC = () => {
             animateIntoView={false}
           />
         </h2>
-        <DraggableMaskCover
+        <FadeIn
+          className="heroPortrait"
           animationDelay={DRAGGABLE_MASK_COVER_ANIMATION_DELAY}
-        />
+          animateIntoView={false}
+        >
+          <ParallaxImage
+            src="/images/hero-cover.jpg"
+            alt="Philip Dahl portrait"
+            containerClassName="heroPortraitContainer"
+            className="heroPortraitImage"
+            multiplier={0.1}
+          />
+        </FadeIn>
         <Arrow
           className={styles.arrow}
           animationDelay={ARROW_ANIMATION_DELAY}
