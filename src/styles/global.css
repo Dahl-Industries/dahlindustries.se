@@ -75,6 +75,13 @@
   transform: none;
 }
 
+/* Soundbank title: keep on one line on mobile. */
+@media screen and (max-width: 991px) {
+  .BigAction_textsSeperator__DG3xy {
+    display: none;
+  }
+}
+
 /* Soundbank project cover: keep phone in frame. */
 .Projects_coverImage__ZOH5x {
   object-position: 65% center;
