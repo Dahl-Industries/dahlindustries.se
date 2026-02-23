@@ -77,13 +77,10 @@
 
 /* Soundbank title: keep on one line on mobile. */
 @media screen and (max-width: 991px) {
-  .BigAction_textsSeperator__DG3xy {
-    display: none;
-  }
-  .BigAction_bigAction__1_x13 {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: baseline;
+  .Projects_details__GJT_w .BigAction_textsSeperator__DG3xy {
+    display: inline;
+    width: 0;
+    height: 0;
   }
 }
 
