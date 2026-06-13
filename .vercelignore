@@ -1,0 +1,11 @@
+.DS_Store
+.git
+.gitignore
+.vercel
+logo-assets/
+section-*.png
+art-*.svg
+glyph-*.svg
+mark-*.svg
+texture-dots.svg
+philip.jpg

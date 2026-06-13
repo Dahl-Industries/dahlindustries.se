@@ -1,21 +1,606 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dahl Industries</title>
-    <meta
-      name="description"
-      content="Dahl Industries — creative development studio based in Stockholm, engineering intelligent systems and reimagining in-store audio through Soundbank™."
-    />
-    <meta name="theme-color" content="#e1dfdd" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dahl Industries — Software · Games · Web</title>
+<meta name="description" content="Dahl Industries AB — an independent Stockholm studio building software, games and the web.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DAHL INDUSTRIES — design tokens
+   ============================================================ */
+:root{
+  --paper:#EBEBE7; --paper2:#E2E2DD; --ink:#101010; --ink2:#2A2A28;
+  --mute:#6E6E68; --hair:rgba(16,16,16,.18); --hair-l:rgba(235,235,231,.22);
+  --accent:#FF4400;
+  --disp:'Archivo',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --pad:clamp(20px,4.5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lenis{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--disp);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--paper)}
+
+.mono{font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.08em;text-transform:uppercase}
+.idx{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--mute)}
+.label{display:flex;align-items:center;gap:12px}
+.label .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.55}}
+.pad{padding-left:var(--pad);padding-right:var(--pad)}
+.disp{font-weight:800;font-stretch:115%;letter-spacing:-.025em;line-height:.88;text-transform:uppercase}
+.shead{display:flex;justify-content:space-between;align-items:center;padding-top:clamp(48px,7vw,84px)}
+.h2{font-size:clamp(44px,6.4vw,92px);margin-top:clamp(18px,2.5vw,34px)}
+.dots-bg{position:absolute;inset:0;background-image:radial-gradient(rgba(16,16,16,.13) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+
+/* ---------- underline motif ---------- */
+.ul{display:block;height:clamp(6px,1vw,14px);background:var(--ink);transform-origin:left center;transform:scaleX(0)}
+.no-js .ul,.reduced .ul{transform:none}
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+#loader{position:fixed;inset:0;z-index:200;background:var(--ink);color:var(--paper);
+  display:flex;flex-direction:column;justify-content:space-between;padding:var(--pad)}
+#loader .lt{display:flex;justify-content:space-between}
+#loader .count{font-family:var(--mono);font-size:clamp(56px,10vw,140px);font-weight:500;align-self:flex-end;font-variant-numeric:tabular-nums}
+#loader .lb{display:flex;justify-content:space-between;align-items:flex-end}
+#loader .word{font-weight:800;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(22px,3vw,40px);overflow:hidden}
+#loader .word span{display:inline-block;transform:translateY(110%)}
+.reduced #loader{display:none}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+#cursor{position:fixed;top:0;left:0;z-index:300;pointer-events:none;mix-blend-mode:difference;display:none}
+@media(hover:hover) and (pointer:fine){#cursor{display:block}}
+#cursor .c-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;transform:translate(-50%,-50%)}
+#cursor .c-ring{position:absolute;width:38px;height:38px;border-radius:50%;border:1.5px solid #fff;transform:translate(-50%,-50%);transition:width .25s ease,height .25s ease,opacity .25s ease}
+#cursor.hovering .c-ring{width:64px;height:64px;opacity:.6}
+.reduced #cursor{display:none}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+  height:72px;padding:0 var(--pad);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:transform .45s cubic-bezier(.65,0,.35,1)}
+nav.hidden{transform:translateY(-100%)}
+nav .brand{font-weight:800;font-stretch:110%;font-size:clamp(14px,1.2vw,17px);letter-spacing:-.01em;text-transform:uppercase}
+nav .brand i{color:var(--accent);font-style:normal}
+nav .coords{display:none}
+@media(min-width:900px){nav .coords{display:block}}
+nav .links{display:flex;gap:clamp(18px,2.8vw,40px);font-size:14px;font-weight:500}
+nav .links a{position:relative;padding-bottom:3px}
+nav .links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.65,0,.35,1)}
+nav .links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ============================================================
+   01 HERO
+   ============================================================ */
+#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(36px,5vh,64px);overflow:hidden}
+#hero .meta{display:flex;justify-content:space-between;margin-top:118px}
+#hero .meta .right{display:none}@media(min-width:760px){#hero .meta .right{display:block}}
+#hero h1{margin-top:auto;padding-top:clamp(28px,4vh,54px)}
+#hero h1 .ln{display:block;width:max-content;max-width:100%;white-space:nowrap}
+#hero h1 .l1{font-size:clamp(64px,14.6vw,210px)}
+#hero h1 .l2{font-size:clamp(46px,10.6vw,152px);margin-top:clamp(10px,1.7vw,24px)}
+#hero h1 .ul{margin-top:clamp(8px,1.3vw,18px)}
+#hero h1 .ch{display:inline-block;will-change:transform}
+#hero .sub{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:clamp(20px,2.6vw,38px)}
+#hero .sub .left{font-size:clamp(16px,1.5vw,21px);font-weight:500;line-height:1.45;max-width:min(780px,calc(100vw - var(--pad)*2 - 180px));white-space:nowrap}
+#hero .sub .left em{font-style:normal;color:var(--accent)}
+#hero .scroll{display:flex;align-items:center;gap:12px;flex:none}
+#hero .scroll svg{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.reduced #hero .scroll svg,.reduced .label .dot{animation:none}
+@media(max-width:860px){#hero .sub .left{max-width:540px;white-space:normal}}
+
+/* ============================================================
+   02 MARQUEE
+   ============================================================ */
+#mq{position:relative;background:var(--ink);color:var(--paper);padding:clamp(56px,9vw,120px) 0;overflow:hidden}
+#mq .tick{position:absolute;top:clamp(16px,2vw,28px);left:var(--pad);color:rgba(235,235,231,.55)}
+#mq .tick2{position:absolute;bottom:clamp(16px,2vw,28px);right:var(--pad);color:rgba(235,235,231,.55)}
+.strip{display:flex;width:max-content;white-space:nowrap;will-change:transform}
+.strip>span{display:flex;align-items:center;font-weight:800;font-stretch:118%;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(48px,8.2vw,118px);line-height:1.05;padding-right:0}
+.strip .sep{color:var(--accent);padding:0 clamp(16px,2.6vw,38px);font-size:.7em}
+.strip.outline>span{color:transparent;-webkit-text-stroke:2px var(--paper)}
+.strip.outline .sep{-webkit-text-stroke:0;color:var(--accent)}
+#mq .row+.row{margin-top:clamp(18px,2.4vw,34px)}
+
+/* ============================================================
+   03 MANIFESTO
+   ============================================================ */
+#manifesto{padding-bottom:clamp(36px,5vw,72px)}
+#manifesto .state{font-size:clamp(28px,4.45vw,64px);font-weight:600;letter-spacing:-.03em;line-height:1.16;max-width:1150px;margin-top:clamp(56px,8vw,120px)}
+#manifesto .state .w{color:rgba(16,16,16,.22);transition:color .3s linear}
+#manifesto .state .w.lit{color:var(--ink)}
+#manifesto .state .w.acc.lit{color:var(--accent)}
+#manifesto .state .w.ulw{border-bottom:max(4px,.11em) solid currentColor}
+
+/* ============================================================
+   04 DISCIPLINES
+   ============================================================ */
+#disc{background:var(--paper2);padding-bottom:clamp(72px,9vw,130px)}
+#disc .rows{margin-top:clamp(40px,5.8vw,84px)}
+.drow{display:block;border-top:1px solid var(--ink);position:relative;overflow:hidden;cursor:pointer}
+.drow:last-child{border-bottom:1px solid var(--ink)}
+.drow .inner{position:relative;z-index:2;display:grid;grid-template-columns:90px 1fr clamp(80px,8vw,110px);align-items:center;gap:18px;
+  padding:clamp(26px,3vw,44px) var(--pad);transition:color .45s cubic-bezier(.65,0,.35,1)}
+@media(min-width:900px){.drow .inner{grid-template-columns:140px 1fr 420px 90px}}
+.drow .fill{position:absolute;inset:0;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .5s cubic-bezier(.65,0,.35,1);z-index:1}
+.drow:hover .fill,.drow:focus-visible .fill{transform:scaleY(1)}
+.drow:hover .inner,.drow:focus-visible .inner{color:var(--paper)}
+.drow .num{font-family:var(--mono);font-size:14px;color:var(--mute);transition:color .45s}
+.drow:hover .num{color:var(--accent)}
+.drow .name{font-size:clamp(34px,5.2vw,76px);font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;
+  transition:transform .5s cubic-bezier(.65,0,.35,1)}
+.drow:hover .name{transform:translateX(clamp(6px,1.4vw,22px))}
+.drow .desc{font-size:15px;line-height:1.55;color:var(--ink2);transition:color .45s;display:none}
+@media(min-width:900px){.drow .desc{display:block}}
+.drow:hover .desc{color:rgba(235,235,231,.78)}
+.drow .glyph{justify-self:end;width:clamp(44px,4.6vw,66px);height:auto;color:var(--ink);transition:color .45s,transform .6s cubic-bezier(.65,0,.35,1)}
+.drow:hover .glyph{color:var(--paper);transform:rotate(-8deg) scale(1.12)}
+.drow .desc-m{display:block;font-size:14px;line-height:1.5;color:var(--ink2);grid-column:1/-1;transition:color .45s}
+.drow:hover .desc-m{color:rgba(235,235,231,.78)}
+@media(min-width:900px){.drow .desc-m{display:none}}
+
+/* ============================================================
+   05 FOUNDER
+   ============================================================ */
+#founder{padding-bottom:clamp(90px,12vw,180px)}
+#founder .wrap{display:grid;grid-template-columns:1fr;gap:clamp(48px,6.6vw,96px);margin-top:clamp(48px,5.8vw,84px);align-items:end}
+@media(min-width:980px){#founder .wrap{grid-template-columns:minmax(380px,560px) 1fr}}
+#founder .photo{position:relative;max-width:560px}
+#founder .photo .imgwrap{overflow:hidden;position:relative;aspect-ratio:4/5}
+#founder .photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);
+  transition:filter .8s ease,transform 1.4s cubic-bezier(.22,1,.36,1);transform:scale(1.06);will-change:transform}
+#founder .photo:hover img{filter:grayscale(0) contrast(1)}
+#founder .photo .frame{position:absolute;inset:0;border:1px solid var(--hair);pointer-events:none}
+#founder .photo .accentbar{position:absolute;left:-12px;top:40px;width:6px;height:140px;background:var(--accent)}
+#founder .photo .tag{position:absolute;left:0;bottom:-32px;color:var(--mute)}
+#founder .who h3{font-size:clamp(60px,8.2vw,118px);line-height:.9;font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.02em}
+#founder .who h3 .ch{display:inline-block}
+#founder .who .role{margin-top:26px}
+#founder .who .ul{height:8px;width:min(420px,80%);margin-top:30px}
+#founder .quote{font-size:clamp(21px,2.1vw,30px);font-weight:500;line-height:1.4;letter-spacing:-.015em;max-width:560px;margin-top:clamp(34px,3.8vw,54px)}
+#founder .quote .q{color:var(--accent)}
+
+/* ============================================================
+   06 REGISTRY
+   ============================================================ */
+#registry{position:relative;background:var(--paper2);padding-bottom:clamp(72px,9vw,130px)}
+#registry .reg{border-top:1px solid var(--ink);margin-top:clamp(36px,3.9vw,56px)}
+.rrow{display:grid;grid-template-columns:1fr;gap:6px;padding:clamp(20px,2vw,30px) 0;border-bottom:1px solid var(--hair);align-items:baseline}
+@media(min-width:760px){.rrow{grid-template-columns:420px 1fr;gap:0}}
+.rrow .k{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.rrow .v{font-size:clamp(21px,2.4vw,34px);font-weight:600;letter-spacing:-.015em}
+.rrow .v .at{color:var(--accent)}
+.rrow .v a{background:linear-gradient(currentColor,currentColor) left bottom/0% 2px no-repeat;transition:background-size .4s cubic-bezier(.65,0,.35,1)}
+.rrow .v a:hover{background-size:100% 2px}
+#registry .note{margin-top:clamp(28px,3vw,44px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+#registry .note .li{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+
+/* ============================================================
+   07 FOOTER
+   ============================================================ */
+footer{background:var(--ink);color:var(--paper);padding-bottom:clamp(36px,4vw,56px)}
+footer .shead .idx{color:rgba(235,235,231,.55)}
+footer .want{margin-top:clamp(48px,6.3vw,90px);font-size:clamp(26px,3vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.12}
+footer .want .dim{color:rgba(235,235,231,.5)}
+footer .mail{display:block;margin-top:clamp(36px,4.4vw,64px)}
+footer .mail .ln{display:block;width:max-content;max-width:100%;white-space:nowrap;font-weight:800;font-stretch:114%;text-transform:uppercase;letter-spacing:-.025em;line-height:.92}
+footer .mail .l1{font-size:clamp(46px,11.5vw,166px)}
+footer .mail .l2{font-size:clamp(36px,9.05vw,130px);margin-top:clamp(14px,2vw,30px)}
+footer .mail .ul{background:var(--paper);height:clamp(5px,.85vw,12px);margin-top:clamp(10px,1.4vw,20px)}
+footer .mail .ul.acc{background:var(--accent)}
+footer .mail .ln{transition:color .4s ease}
+footer .mail:hover .ln{color:var(--accent)}
+footer .copied{margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .3s}
+footer .copied.show{opacity:1}
+footer .bot{display:grid;grid-template-columns:1fr;gap:28px;margin-top:clamp(56px,6.6vw,96px);padding-top:34px;border-top:1px solid var(--hair-l)}
+@media(min-width:860px){footer .bot{grid-template-columns:1fr 1fr 1fr;gap:40px}}
+footer .bot .col{font-size:15px;line-height:1.7;color:rgba(235,235,231,.8)}
+footer .bot .col b{color:var(--paper);font-weight:700}
+footer .bot .col a:hover{color:var(--accent)}
+@media(min-width:860px){footer .bot .col:last-child{text-align:right}}
+
+/* ---------- reveal helpers ---------- */
+.r-up{opacity:0;transform:translateY(46px)}
+.reduced .r-up,.no-js .r-up{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"><div class="c-ring"></div><div class="c-dot"></div></div>
+
+<!-- PRELOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="lt">
+    <span class="mono" style="color:rgba(235,235,231,.55)">Dahl Industries AB</span>
+    <span class="mono" style="color:rgba(235,235,231,.55)">Stockholm — Sweden</span>
+  </div>
+  <div class="lb">
+    <div class="word"><span id="loadword">Software</span></div>
+    <div class="count" id="count">000</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="brand" href="#hero">Dahl<i>.</i>Industries</a>
+  <span class="coords mono">STHLM&nbsp;&nbsp;59.4045° N — 17.9302° E</span>
+  <div class="links">
+    <a href="#founder">Studio</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ============ 01 / HERO ============ -->
+<section id="hero" class="pad">
+  <div class="dots-bg" data-speed="0.92"></div>
+  <div class="meta">
+    <div class="label"><span class="dot"></span><span class="mono">Independent digital studio</span></div>
+    <div class="right mono">EST. STOCKHOLM — SWEDEN</div>
+  </div>
+  <h1 class="disp" aria-label="Dahl Industries">
+    <span class="ln l1"><span class="chs" data-split>DAHL</span><span class="ul"></span></span>
+    <span class="ln l2"><span class="chs" data-split>INDUSTRIES</span><span class="ul"></span></span>
+  </h1>
+  <div class="sub">
+    <div class="left r-up">We build <em>software</em>, <em>games</em> and the <em>web</em> — engineered in&nbsp;Stockholm.</div>
+    <div class="scroll r-up"><span class="mono">Scroll</span>
+      <svg width="14" height="34" viewBox="0 0 14 34" aria-hidden="true"><path d="M7 0v30M1 25l6 7 6-7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 / MARQUEE ============ -->
+<section id="mq" aria-hidden="true">
+  <span class="tick mono">02 — Disciplines in motion</span>
+  <div class="row"><div class="strip" id="strip1"></div></div>
+  <div class="row"><div class="strip outline" id="strip2"></div></div>
+  <span class="tick2 mono">Stockholm — Worldwide</span>
+</section>
+
+<!-- ============ 03 / MANIFESTO ============ -->
+<section id="manifesto" class="pad">
+  <div class="shead">
+    <div class="label"><span class="dot"></span><span class="mono">Manifesto</span></div>
+    <div class="idx">01/</div>
+  </div>
+  <p class="state" id="statement">
+    We are a small studio with <b data-k>large output.</b> We design and engineer <b data-u>digital products</b> that feel <b data-k>fast, considered</b> and <b data-a>built to last.</b>
+  </p>
+</section>
+
+<!-- ============ 04 / DISCIPLINES ============ -->
+<section id="disc">
+  <div class="pad shead">
+    <div class="label"><span class="dot"></span><span class="mono">What we do</span></div>
+    <div class="idx">02/</div>
+  </div>
+  <div class="pad"><h2 class="h2 disp r-up">Disciplines</h2></div>
+  <div class="rows">
+    <div class="drow" tabindex="0">
+      <div class="fill"></div>
+      <div class="inner">
+        <span class="num">/01</span>
+        <span class="name">Software</span>
+        <span class="desc">Tools, platforms and internal systems — designed around the people who use them daily.</span>
+        <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="10" width="52" height="38" fill="none" stroke="currentColor" stroke-width="2"/><rect x="6" y="10" width="52" height="9" fill="currentColor"/><rect x="12" y="26" width="22" height="4" fill="currentColor"/><rect x="12" y="34" width="30" height="4" fill="#FF4400"/><rect x="22" y="52" width="20" height="3" fill="currentColor"/></svg>
+        <span class="desc-m">Tools, platforms and internal systems — designed around the people who use them daily.</span>
+      </div>
+    </div>
+    <div class="drow" tabindex="0">
+      <div class="fill"></div>
+      <div class="inner">
+        <span class="num">/02</span>
+        <span class="name">Games</span>
+        <span class="desc">Original titles and interactive worlds — small in scope, sharp in feel, finished to the frame.</span>
+        <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 40 L20 14 L44 14 L56 40 L44 52 L20 52 Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="42" cy="32" r="5" fill="#FF4400"/><path d="M20 28v10M15 33h10" stroke="currentColor" stroke-width="3"/></svg>
+        <span class="desc-m">Original titles and interactive worlds — small in scope, sharp in feel, finished to the frame.</span>
+      </div>
+    </div>
+    <div class="drow" tabindex="0">
+      <div class="fill"></div>
+      <div class="inner">
+        <span class="num">/03</span>
+        <span class="name">Web Development</span>
+        <span class="desc">Sites and storefronts with editorial craft — performant, animated, unmistakably yours.</span>
+        <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="32" rx="11" ry="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 32h48M11 21h42M11 43h42" stroke="currentColor" stroke-width="2"/><circle cx="49" cy="15" r="6" fill="#FF4400"/></svg>
+        <span class="desc-m">Sites and storefronts with editorial craft — performant, animated, unmistakably yours.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 / FOUNDER ============ -->
+<section id="founder" class="pad">
+  <div class="shead">
+    <div class="label"><span class="dot"></span><span class="mono">The studio</span></div>
+    <div class="idx">03/</div>
+  </div>
+  <div class="wrap">
+    <figure class="photo">
+      <span class="accentbar"></span>
+      <div class="imgwrap"><img src="assets/philip.jpg" alt="Portrait of Philip Dahl, founder and CEO of Dahl Industries" data-prl></div>
+      <span class="frame"></span>
+      <figcaption class="tag mono">Portrait — Stockholm, 2026</figcaption>
+    </figure>
+    <div class="who">
+      <h3><span data-split>PHILIP</span><br><span data-split>DAHL</span></h3>
+      <div class="label role"><span class="dot"></span><span class="mono">Founder &amp; CEO</span></div>
+      <div class="ul"></div>
+      <p class="quote r-up"><span class="q">“</span>Every Dahl project ships with the same promise — if my name is on the company, my hands are on the work.<span class="q">”</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 / REGISTRY ============ -->
+<section id="registry">
+  <div class="dots-bg" style="opacity:.5"></div>
+  <div class="pad shead">
+    <div class="label"><span class="dot"></span><span class="mono">Company registry</span></div>
+    <div class="idx">04/</div>
+  </div>
+  <div class="pad"><h2 class="h2 disp r-up">On Record</h2></div>
+  <div class="pad">
+    <div class="reg">
+      <div class="rrow r-up"><div class="k">Legal name</div><div class="v">Dahl Industries AB</div></div>
+      <div class="rrow r-up"><div class="k">Org. no.</div><div class="v">559554-6069</div></div>
+      <div class="rrow r-up"><div class="k">Registered office</div><div class="v">Stockholm, Sweden</div></div>
+      <div class="rrow r-up"><div class="k">CEO &amp; Founder</div><div class="v">Philip Dahl</div></div>
+      <div class="rrow r-up"><div class="k">Phone</div><div class="v"><a href="tel:+46762159377">+46 76 215 93 77</a></div></div>
+      <div class="rrow r-up"><div class="k">Email</div><div class="v"><a href="mailto:info@dahlindustries.se">info<span class="at">@</span>dahlindustries.se</a></div></div>
+    </div>
+    <div class="note">
+      <span class="mono" style="color:var(--mute)">Registered — Bolagsverket, Sweden</span>
+      <a class="li" href="https://www.linkedin.com/in/philip-dahl-824a96166/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 / FOOTER ============ -->
+<footer id="contact">
+  <div class="pad shead">
+    <div class="label"><span class="dot"></span><span class="mono" style="color:var(--paper)">Contact</span></div>
+    <div class="idx">05/</div>
+  </div>
+  <div class="pad">
+    <p class="want r-up">Want to work together?<br><span class="dim">Send us a message.</span></p>
+    <a class="mail" href="mailto:info@dahlindustries.se" id="bigmail" aria-label="Email info@dahlindustries.se">
+      <span class="ln l1 disp">Info@Dahl<span class="ul"></span></span>
+      <span class="ln l2 disp">Industries.se<span class="ul acc"></span></span>
+    </a>
+    <div class="copied" id="copied">Click held — address copied ✓</div>
+    <div class="bot">
+      <div class="col r-up"><b>Dahl Industries AB</b><br>Org. no. 559554-6069<br>Registered office: Stockholm, Sweden</div>
+      <div class="col r-up"><b>CEO &amp; Founder Philip Dahl</b><br><a href="tel:+46762159377">+46 76 215 93 77</a><br><a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a></div>
+      <div class="col r-up"><b>Elsewhere</b><br><a href="https://www.linkedin.com/in/philip-dahl-824a96166/" target="_blank" rel="noopener">LinkedIn ↗</a><br>© 2026 — Built in Stockholm</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+"use strict";
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduced) document.documentElement.classList.add('reduced');
+const hasGsap = typeof gsap !== 'undefined';
+if(hasGsap && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+/* ---------- split chars ---------- */
+document.querySelectorAll('[data-split]').forEach(el=>{
+  const txt = el.textContent; el.textContent='';
+  [...txt].forEach(c=>{
+    const s=document.createElement('span'); s.className='ch';
+    s.textContent=c===' ' ? '\u00A0' : c; el.appendChild(s);
+  });
+});
+
+/* ---------- manifesto: split words ---------- */
+(function(){
+  const st=document.getElementById('statement'); if(!st) return;
+  const out=[];
+  st.childNodes.forEach(n=>{
+    if(n.nodeType===3){ n.textContent.split(/\s+/).filter(Boolean).forEach(w=>out.push({w,cls:''})); }
+    else if(n.nodeType===1){
+      const cls = n.hasAttribute('data-a')?'acc': n.hasAttribute('data-u')?'ulw':'';
+      n.textContent.split(/\s+/).filter(Boolean).forEach(w=>out.push({w,cls}));
+    }
+  });
+  st.innerHTML = out.map(o=>`<span class="w ${o.cls}">${o.w}</span>`).join(' ');
+})();
+
+/* ---------- marquee strips ---------- */
+function buildStrip(id, items){
+  const el=document.getElementById(id); if(!el) return;
+  const unit = items.map(t=>`<span>${t}<i class="sep">✺</i></span>`).join('');
+  el.innerHTML = unit+unit+unit; // 3 copies for seamless loop
+}
+buildStrip('strip1',['SOFTWARE','GAMES','WEB DEVELOPMENT']);
+buildStrip('strip2',['WEB DEVELOPMENT','SOFTWARE','GAMES']);
+document.querySelectorAll('.strip .sep').forEach(s=>{s.style.fontStyle='normal'});
+
+/* ---------- smooth scroll (Lenis, graceful) ---------- */
+let lenis=null;
+function startLenis(){
+  if(reduced || typeof Lenis==='undefined') return;
+  lenis = new Lenis({lerp:.09, wheelMultiplier:1, smoothWheel:true});
+  function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  if(hasGsap){ lenis.on('scroll', ScrollTrigger.update); }
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){ e.preventDefault(); lenis.scrollTo(t,{offset:-60}); }
+    });
+  });
+}
+const lscript=document.createElement('script');
+lscript.src='https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js';
+lscript.onload=startLenis; lscript.onerror=()=>{};
+document.head.appendChild(lscript);
+
+/* ---------- cursor ---------- */
+(function(){
+  const cur=document.getElementById('cursor'); if(!cur||reduced) return;
+  const dot=cur.querySelector('.c-dot'), ring=cur.querySelector('.c-ring');
+  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){
+    rx+=(mx-rx)*.16; ry+=(my-ry)*.16;
+    dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,.drow').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('hovering'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('hovering'));
+  });
+})();
+
+/* ---------- nav hide on scroll down ---------- */
+(function(){
+  const nav=document.getElementById('nav'); let last=0;
+  addEventListener('scroll',()=>{
+    const y=scrollY;
+    nav.classList.toggle('hidden', y>last && y>300);
+    last=y;
+  },{passive:true});
+})();
+
+/* ---------- copy email ---------- */
+(function(){
+  const m=document.getElementById('bigmail'), c=document.getElementById('copied');
+  if(!m) return;
+  m.addEventListener('click',()=>{
+    try{ navigator.clipboard && navigator.clipboard.writeText('info@dahlindustries.se');
+      c.classList.add('show'); setTimeout(()=>c.classList.remove('show'),2200);
+    }catch(e){}
+  });
+})();
+
+/* ============================================================
+   GSAP TIMELINES
+   ============================================================ */
+if(!hasGsap || reduced){
+  // graceful: show everything
+  document.querySelectorAll('.r-up,.ch,.ul').forEach(el=>{
+    el.style.opacity=''; el.style.transform='none';
+  });
+  const ld=document.getElementById('loader'); if(ld) ld.style.display='none';
+  document.querySelectorAll('#statement .w').forEach(w=>w.classList.add('lit'));
+}else{
+
+  /* ----- preloader ----- */
+  const words=['Software','Games','Web Development','Dahl Industries'];
+  const lw=document.getElementById('loadword'), cnt=document.getElementById('count');
+  const pre=gsap.timeline();
+  pre.to(lw,{y:0,duration:.5,ease:'power3.out'});
+  const prog={v:0};
+  pre.to(prog,{v:100,duration:2.1,ease:'power2.inOut',
+    onUpdate(){ cnt.textContent=String(Math.round(prog.v)).padStart(3,'0');
+      const idx=Math.min(words.length-1, Math.floor(prog.v/26));
+      if(lw.textContent!==words[idx]) lw.textContent=words[idx];
+    }},'<');
+  pre.to('#loader',{yPercent:-100,duration:.9,ease:'power4.inOut',delay:.15});
+  pre.set('#loader',{display:'none'});
+
+  /* ----- hero intro ----- */
+  gsap.set('#hero .ch',{yPercent:115});
+  gsap.set('#hero .ul',{scaleX:0});
+  pre.add(()=>{
+    const t=gsap.timeline();
+    t.to('#hero .l1 .ch',{yPercent:0,duration:1,ease:'power4.out',stagger:.045});
+    t.to('#hero .l2 .ch',{yPercent:0,duration:1,ease:'power4.out',stagger:.03},'-=.8');
+    t.to('#hero .ul',{scaleX:1,duration:1.1,ease:'power4.inOut',stagger:.12},'-=.7');
+    t.to('#hero .sub .r-up',{opacity:1,y:0,duration:.8,ease:'power3.out',stagger:.1},'-=.6');
+  },'-=.45');
+
+  /* ----- generic reveals ----- */
+  document.querySelectorAll('.r-up').forEach(el=>{
+    if(el.closest('#hero')) return;
+    gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+
+  /* ----- underline draws (non-hero) ----- */
+  document.querySelectorAll('.ul').forEach(el=>{
+    if(el.closest('#hero')) return;
+    gsap.to(el,{scaleX:1,duration:1.1,ease:'power4.inOut',
+      scrollTrigger:{trigger:el,start:'top 90%'}});
+  });
+
+  /* ----- hero parallax dots + headline drift ----- */
+  gsap.to('#hero h1',{yPercent:-8,ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* ----- marquee: infinite + scroll-reactive ----- */
+  function marquee(sel,dir){
+    const el=document.querySelector(sel); if(!el) return;
+    const w=el.scrollWidth/3;
+    const obj={x:0}; let speed=dir*0.6;
+    gsap.ticker.add(()=>{
+      obj.x=(obj.x+speed)% w;
+      el.style.transform=`translateX(${dir>0?-obj.x:obj.x-w}px)`;
+    });
+    ScrollTrigger.create({trigger:'#mq',start:'top bottom',end:'bottom top',
+      onUpdate(self){ speed=dir*(0.6+Math.min(Math.abs(self.getVelocity())/700,3)); }});
+  }
+  marquee('#strip1',1); marquee('#strip2',-1);
+
+  /* ----- manifesto scrub reveal ----- */
+  const ws=gsap.utils.toArray('#statement .w');
+  ScrollTrigger.create({trigger:'#statement',start:'top 78%',end:'bottom 45%',scrub:.4,
+    onUpdate(self){
+      const n=Math.floor(self.progress*ws.length);
+      ws.forEach((w,i)=>w.classList.toggle('lit',i<=n));
+    }});
+
+  /* ----- discipline rows entrance ----- */
+  gsap.utils.toArray('.drow').forEach((row,i)=>{
+    gsap.from(row,{opacity:0,y:60,duration:.8,ease:'power3.out',delay:i*.06,
+      scrollTrigger:{trigger:row,start:'top 92%'}});
+  });
+
+  /* ----- founder ----- */
+  gsap.set('#founder .ch',{yPercent:115});
+  ScrollTrigger.create({trigger:'#founder .who',start:'top 80%',once:true,
+    onEnter(){ gsap.to('#founder .ch',{yPercent:0,duration:.9,ease:'power4.out',stagger:.04}); }});
+  gsap.fromTo('#founder .photo img',{yPercent:-6},{yPercent:6,ease:'none',
+    scrollTrigger:{trigger:'#founder .photo',start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.from('#founder .photo',{clipPath:'inset(0 0 100% 0)',duration:1.2,ease:'power4.inOut',
+    scrollTrigger:{trigger:'#founder .photo',start:'top 85%'}});
+
+  /* ----- registry rows hairline stagger handled by .r-up; footer mail ----- */
+  gsap.set('footer .mail .ln',{yPercent:40,opacity:0});
+  gsap.set('footer .ul',{scaleX:0});
+  ScrollTrigger.create({trigger:'footer .mail',start:'top 85%',once:true,
+    onEnter(){
+      const t=gsap.timeline();
+      t.to('footer .mail .ln',{yPercent:0,opacity:1,duration:1,ease:'power4.out',stagger:.12});
+      t.to('footer .ul',{scaleX:1,duration:1.1,ease:'power4.inOut',stagger:.12},'-=.7');
+    }});
+}
+})();
+</script>
+</body>
 </html>

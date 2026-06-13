@@ -1,14 +1,5 @@
-# Richard Ekwonye Replica (React + Vite)
+# Dahl Industries
 
-## Run
+Static site for dahlindustries.se.
 
-```bash
-npm install
-npm run dev
-```
-
-## Notes
-
-- This project uses original class names/assets extracted from the live site for close visual parity.
-- Routes included: `/`, `/work`, `/about`, `/contact`.
-- All image/font assets used by the replica are stored under `public/`.
+Deploy on Vercel with no build command and output directory set to the project root.

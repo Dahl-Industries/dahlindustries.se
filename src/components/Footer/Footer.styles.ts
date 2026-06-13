@@ -1,3 +1,0 @@
-const styles = {"footer":"Footer_footer__Q5T55","footerGrid":"Footer_footerGrid__J3zUe","title":"Footer_title__o3sfG","socialLinks":"Footer_socialLinks__VDbnR","team":"Footer_team__HsB_D"} as const;
-
-export default styles;
