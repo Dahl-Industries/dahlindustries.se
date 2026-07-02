@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smash Arena Support | Dahl Industries</title>
+    <meta
+      name="description"
+      content="Support for Smash Arena: Table Tennis Game by Dahl Industries AB — how to play, FAQ, and contact."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0e0d17;
+        --panel: rgba(255, 255, 255, 0.06);
+        --text: #efe7d8;
+        --muted: rgba(239, 231, 216, 0.72);
+        --line: rgba(239, 231, 216, 0.16);
+        --accent: #ff4400;
+        --neon: #21e6ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 15% 12%, rgba(255, 79, 163, 0.14), transparent 34rem),
+          radial-gradient(circle at 85% 0%, rgba(33, 230, 255, 0.12), transparent 30rem),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.58;
+      }
+
+      main {
+        width: min(760px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 72px 0;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--panel);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+        padding: clamp(28px, 6vw, 56px);
+        backdrop-filter: blur(18px);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(40px, 9vw, 74px);
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+      }
+
+      .updated {
+        margin: 0 0 36px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      h2 {
+        margin: 34px 0 10px;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      a {
+        color: var(--text);
+        text-decoration-color: var(--accent);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+      }
+
+      .cta {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 12px 22px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .cta:hover {
+        border-color: var(--neon);
+      }
+
+      footer {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article class="card">
+        <p class="eyebrow">Dahl Industries AB</p>
+        <h1>Smash Arena Support</h1>
+        <p class="updated">Smash Arena: Table Tennis Game — iPhone, iOS 17 or later</p>
+
+        <p>
+          Smash Arena is a fast, minimalist 3D table tennis game with a
+          retro-arcade soul. Rally, smash, and climb the ladder — every round
+          you clear loads a tougher opponent.
+        </p>
+
+        <h2>How to play</h2>
+        <p>
+          Drag anywhere on the screen to move your paddle — it follows your
+          finger and swings automatically on contact. Moving the paddle
+          quickly at the moment of contact aims the return, adds power, and
+          puts spin on the ball. First to 11 points (win by 2) clears the
+          round.
+        </p>
+
+        <h2>Sound &amp; haptics</h2>
+        <p>
+          Both can be toggled in Settings on the title screen, or directly
+          from the pause menu during a match. Sound respects your device's
+          silent switch.
+        </p>
+
+        <h2>High scores</h2>
+        <p>
+          Your high score, best streak, and best rally are stored locally on
+          your device. You can reset them under Settings → Reset Records.
+          Deleting the app also deletes all saved data — nothing is stored
+          anywhere else.
+        </p>
+
+        <h2>Something not working?</h2>
+        <p>
+          Email us and we'll get back to you. Include your iPhone model and
+          iOS version if you can — it helps us reproduce the issue.
+        </p>
+        <p>
+          <a class="cta" href="mailto:info@dahlindustries.se?subject=Smash%20Arena%20Support">Contact support</a>
+        </p>
+
+        <h2>Privacy</h2>
+        <p>
+          Smash Arena collects no data — no ads, no tracking, no accounts.
+          Read the full <a href="/smasharena/privacy">privacy policy</a>.
+        </p>
+
+        <footer>
+          Dahl Industries AB<br />
+          Stockholm, Sweden<br />
+          <a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
