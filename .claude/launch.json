@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "autoPort": true,
+  "configurations": [
+    {
+      "name": "dahlsite",
+      "autoPort": true,
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import os,http.server,socketserver,functools; d='/Users/philip/Desktop/dahlindustries.se'; h=functools.partial(http.server.SimpleHTTPRequestHandler,directory=d); socketserver.TCPServer(('',int(os.environ.get('PORT','4599'))),h).serve_forever()"],
+      "port": 4599
+    }
+  ]
+}
