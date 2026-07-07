@@ -1,112 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skyhop — Cozy Sky Climb</title>
-<meta name="description" content="Skyhop is a cozy tilt-to-steer sky climber. Guide Twill, a little sproutling, up an endless tower of hand-drawn garden platforms. No ads, no tracking, offline. By DAHL.INDUSTRIES.">
-<meta property="og:title" content="Skyhop — Cozy Sky Climb">
-<meta property="og:description" content="Climb the canopy with Twill. A cozy endless sky climber for iPhone by DAHL.INDUSTRIES.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyhop — Cozy Sky Climber | Dahl Industries</title>
+<meta name="description" content="Skyhop: guide Twill, a little sproutling, up an endless tower of hand-drawn garden platforms. Tilt to steer, one thumb, no pressure. Fully offline, no ads, no tracking.">
+<link rel="canonical" href="https://dahlindustries.se/skyhop">
+<meta property="og:title" content="Skyhop — Cozy Sky Climber">
+<meta property="og:description" content="Climb the canopy with Twill. A cozy tilt-to-steer sky climber for iPhone. Offline, no ads, no tracking.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="icon.png">
-<link rel="icon" href="icon.png">
+<meta property="og:image" content="https://dahlindustries.se/skyhop/icon.png">
+<meta name="theme-color" content="#2E7D5B">
+<link rel="icon" href="/skyhop/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#10393B;--paper:#F6F9EE;--mist:#BFE8DC;--sky:#A9D9E8;--fern:#2E7D5B;--sprout:#8FD063;--gold:#FFC94D;--coral:#F2695C;--dim:#5b7a70;--accent:#ff4400}
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:var(--fern);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
-  .hero{position:relative;overflow:hidden;text-align:center;padding:116px 24px 84px}
-  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
-    background:
-      radial-gradient(120% 80% at 78% 0%, rgba(255,201,77,.28), transparent 55%),
-      radial-gradient(120% 80% at 20% 8%, rgba(143,208,99,.24), transparent 55%),
-      radial-gradient(120% 95% at 50% 122%, rgba(46,125,91,.16), transparent 60%),
-      linear-gradient(180deg,var(--mist),var(--paper))}
-  .icon{width:104px;height:104px;border-radius:24px;box-shadow:0 18px 40px rgba(16,57,59,.22);margin-bottom:22px}
-  .eyebrow{letter-spacing:.42em;font-size:12px;font-weight:600;color:var(--fern);text-transform:uppercase}
-  h1{font-size:clamp(56px,13vw,116px);font-weight:800;letter-spacing:-.02em;line-height:.95;margin:12px 0 8px;
-    background:linear-gradient(180deg,#1c5a44,#2E7D5B 55%,#8FD063);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .tag{font-size:clamp(18px,3.6vw,26px);color:var(--ink);font-weight:600}
-  .sub{color:var(--dim);margin-top:10px;font-size:15px}
-  .pill{display:inline-block;margin-top:32px;padding:12px 26px;border:1px solid rgba(16,57,59,.16);border-radius:999px;
-    color:var(--ink);font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.5)}
-  section{padding:66px 0;border-top:1px solid rgba(16,57,59,.08)}
-  h2{font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-.01em;margin-bottom:26px;text-align:center}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .card{background:#fff;border:1px solid rgba(16,57,59,.08);border-radius:18px;padding:24px;box-shadow:0 6px 20px rgba(16,57,59,.05)}
-  .card h3{font-size:17px;margin-bottom:6px;color:var(--ink)}
-  .card p{color:var(--dim);font-size:15px}
-  .k{color:var(--fern);font-weight:700}
-  .lead{max-width:680px;margin:0 auto;text-align:center;color:var(--dim);font-size:18px}
-  .lead b{color:var(--ink);font-weight:600}
-  footer{padding:54px 24px 70px;text-align:center;border-top:1px solid rgba(16,57,59,.08);color:var(--dim);font-size:14px}
-  .brand{font-weight:800;letter-spacing:.06em;color:var(--ink)}
-  .brand .dot{color:var(--accent)}
-  .links{margin:16px 0 22px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:14px}
+:root{
+  --paper:#EBEBE7; --paper2:#E2E2DD; --ink:#101010; --ink2:#2A2A28; --mute:#6E6E68;
+  --hair:rgba(16,16,16,.18); --accent:#FF4400;
+  --green:#2E7D5B; --green-deep:#10393B; --gold:#FFC94D;
+  --disp:'Archivo',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --pad:clamp(20px,4.5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--paper)}
+.pad{padding-left:var(--pad);padding-right:var(--pad)}
+.mono{font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.09em;text-transform:uppercase}
+.label{display:inline-flex;align-items:center;gap:11px;color:var(--mute)}
+.label .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.55}}
+.disp{font-weight:800;font-stretch:115%;letter-spacing:-.025em;line-height:.9;text-transform:uppercase}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(16,16,16,.12) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+
+/* nav */
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;height:70px;
+  padding:0 var(--pad);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--paper) 84%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav .brand{font-weight:800;font-stretch:110%;font-size:clamp(14px,1.2vw,16px);letter-spacing:-.01em;text-transform:uppercase}
+nav .brand i{color:var(--accent);font-style:normal}
+nav .back{color:var(--mute)}
+nav .back:hover{color:var(--ink)}
+
+/* hero */
+.hero{position:relative;padding-top:clamp(56px,9vw,120px);padding-bottom:clamp(40px,6vw,76px);overflow:hidden}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero .icon{width:clamp(84px,9vw,116px);height:clamp(84px,9vw,116px);border-radius:24px;box-shadow:0 18px 44px rgba(16,57,59,.28);margin-bottom:26px}
+.hero h1{font-size:clamp(52px,9vw,128px);margin:14px 0 0}
+.hero h1 .y{color:var(--green)}
+.hero .lede{max-width:34ch;margin-top:22px;font-size:clamp(16px,1.5vw,20px);line-height:1.5;color:var(--ink2);font-stretch:100%;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:30px;background:var(--ink);color:var(--paper);
+  font-weight:700;font-stretch:110%;text-transform:uppercase;letter-spacing:.02em;font-size:15px;
+  padding:15px 24px;border-radius:14px;transition:transform .25s ease,background .25s ease}
+.cta:hover{transform:translateY(-2px);background:var(--green)}
+.cta svg{width:19px;height:19px;fill:currentColor}
+.specs{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.specs .s{display:flex;flex-direction:column;gap:2px}
+.specs .s b{font-size:clamp(24px,2.6vw,34px);font-weight:800;font-stretch:112%;letter-spacing:-.02em}
+.specs .s span{color:var(--mute)}
+
+/* phone showcase */
+.showcase{position:relative;display:flex;justify-content:center}
+.showcase .frame{width:min(74%,300px);border-radius:34px;box-shadow:0 30px 70px rgba(16,57,59,.30);border:1px solid var(--hair)}
+
+/* marquee band */
+.band{background:var(--green-deep);color:var(--paper);overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000}
+.band .row{display:flex;gap:40px;white-space:nowrap;padding:16px 0;animation:scroll 26s linear infinite;font-weight:800;font-stretch:115%;text-transform:uppercase;font-size:clamp(18px,2vw,26px);letter-spacing:-.01em}
+.band .row span{display:inline-flex;align-items:center;gap:40px}
+.band .row span::after{content:"";width:9px;height:9px;background:var(--gold);border-radius:50%}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* features */
+.feat{padding:clamp(56px,8vw,110px) 0}
+.feat .head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px}
+.feat h2{font-size:clamp(38px,6vw,86px);margin-top:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:clamp(34px,5vw,60px)}
+.card{background:var(--paper);padding:clamp(26px,3vw,40px);min-height:230px;display:flex;flex-direction:column;transition:background .3s ease}
+.card:hover{background:var(--paper2)}
+.card .n{font-family:var(--mono);color:var(--mute);font-size:12px;letter-spacing:.06em}
+.card h3{font-size:clamp(22px,2.2vw,30px);font-weight:800;font-stretch:112%;letter-spacing:-.02em;text-transform:uppercase;margin:auto 0 10px;line-height:.98}
+.card p{color:var(--ink2);line-height:1.5;font-weight:500}
+.card .tag{color:var(--green)}
+
+/* gallery */
+.gal{padding-bottom:clamp(56px,8vw,110px)}
+.gal .strip{display:flex;gap:clamp(16px,2vw,26px);overflow-x:auto;padding:6px 0 18px;scroll-snap-type:x mandatory}
+.gal .strip img{width:min(62vw,270px);flex:none;border-radius:22px;scroll-snap-align:center;box-shadow:0 16px 40px rgba(16,57,59,.16);border:1px solid var(--hair)}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:clamp(48px,7vw,92px) 0 40px}
+footer .top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+footer h2{font-size:clamp(34px,5vw,72px);font-weight:800;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em;line-height:.9}
+footer h2 i{color:var(--accent);font-style:normal}
+footer .links{display:flex;gap:26px;flex-wrap:wrap}
+footer .links a{color:rgba(235,235,231,.7);border-bottom:1px solid transparent;padding-bottom:2px}
+footer .links a:hover{color:var(--paper);border-color:var(--accent)}
+footer .fine{margin-top:clamp(40px,6vw,70px);padding-top:26px;border-top:1px solid rgba(235,235,231,.18);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:rgba(235,235,231,.55);font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+
+@media(max-width:820px){
+  .hero .grid{grid-template-columns:1fr;gap:28px}
+  .showcase{display:none}          /* skip the big hero screenshot on mobile — lead with the headline */
+  .hero{padding-top:clamp(40px,8vw,90px)}
+  .hero h1{font-size:clamp(44px,13vw,72px);line-height:.94}
+}
 </style>
 </head>
 <body>
-  <header class="hero">
-    <img class="icon" src="icon.png" alt="Skyhop app icon">
-    <div class="eyebrow">A DAHL<span style="color:var(--accent)">.</span>INDUSTRIES GAME</div>
-    <h1>SKYHOP</h1>
-    <div class="tag">Climb the canopy with Twill.</div>
-    <div class="sub">A cozy tilt-to-steer sky climber for iPhone.</div>
-    <span class="pill">Coming to the App Store</span>
-  </header>
 
-  <section>
-    <div class="wrap">
-      <p class="lead">Guide <b>Twill</b>, a smiling little sproutling, up an endless tower of
-      hand-drawn garden platforms. <b>Tilt to steer</b>, one thumb, no pressure —
-      just how high can you climb before the fall?</p>
-    </div>
-  </section>
+<nav class="pad">
+  <a class="brand" href="/">DAHL<i>.</i>INDUSTRIES</a>
+  <a class="back mono" href="/">← All projects</a>
+</nav>
 
-  <section>
-    <div class="wrap">
-      <h2>How you play</h2>
-      <div class="grid">
-        <div class="card"><h3>Tilt to steer</h3><p>Twill hops on their own. <span class="k">Tilt</span> your iPhone — or drag a thumb — to guide each bounce onto the next platform.</p></div>
-        <div class="card"><h3>Ride the garden</h3><p>Bounce leafy pads, <span class="k">ping off mushroom springs</span> for a big launch, and drift higher on floating dandelion seeds.</p></div>
-        <div class="card"><h3>Mind the gaps</h3><p>Skip the <span class="k">brittle twigs</span> before they snap, and dodge or bop the bramble-bugs creeping across your path.</p></div>
+<header class="hero pad">
+  <div class="dots"></div>
+  <div class="grid">
+    <div>
+      <span class="label mono"><span class="dot"></span>iOS · Arcade · Vertical Climber</span>
+      <img class="icon" src="/skyhop/icon.png" alt="Skyhop" width="116" height="116">
+      <h1 class="disp">Hop to<br>the <span class="y">top</span>.</h1>
+      <p class="lede">Guide Twill, a little sproutling, up an endless tower of hand-drawn garden platforms. Tilt to steer, one thumb, no pressure — just how high can you climb?</p>
+      <a class="cta" href="https://apps.apple.com/app/id6788344684">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+        Download on the App Store
+      </a>
+      <div class="specs">
+        <div class="s"><b>∞</b><span class="mono">endless climb</span></div>
+        <div class="s"><b>1</b><span class="mono">thumb</span></div>
+        <div class="s"><b>4</b><span class="mono">platform types</span></div>
+        <div class="s"><b>0</b><span class="mono">ads · tracking</span></div>
       </div>
     </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <h2>What you chase</h2>
-      <div class="grid">
-        <div class="card"><h3>A higher sky</h3><p>Every metre climbed cools the world from soft morning mist into clear high blue.</p></div>
-        <div class="card"><h3>A new best</h3><p>Your best height lives only on your device. Beat it by a hair, then hop again.</p></div>
-        <div class="card"><h3>One more run</h3><p>Endless, procedurally grown towers — no two climbs into the canopy are ever the same.</p></div>
-      </div>
+    <div class="showcase">
+      <img class="frame" src="/skyhop/shots/menu.jpg" alt="Skyhop — title screen with Twill" loading="lazy">
     </div>
-  </section>
+  </div>
+</header>
 
-  <section>
-    <div class="wrap">
-      <h2>Built right</h2>
-      <div class="grid">
-        <div class="card"><h3>No ads. Ever.</h3><p>No banners, no interstitials, no in-app purchases. Just the climb.</p></div>
-        <div class="card"><h3>No tracking</h3><p>No accounts, no sign-ups, no analytics. Your best height stays on your device.</p></div>
-        <div class="card"><h3>Fully offline</h3><p>Plays anywhere — plane, subway, off the grid. iPhone, iOS 17 or later.</p></div>
-      </div>
-    </div>
-  </section>
+<div class="band" aria-hidden="true">
+  <div class="row">
+    <span>Climb</span><span>Bounce</span><span>Tilt</span><span>Dodge</span><span>Soar</span><span>Chase</span>
+    <span>Climb</span><span>Bounce</span><span>Tilt</span><span>Dodge</span><span>Soar</span><span>Chase</span>
+  </div>
+</div>
 
-  <footer>
-    <div class="brand">DAHL<span class="dot">.</span>INDUSTRIES</div>
-    <div class="links">
-      <a href="support/">Support</a>
-      <a href="privacy/">Privacy</a>
-      <a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a>
+<section class="feat pad">
+  <div class="head">
+    <div>
+      <span class="label mono"><span class="dot"></span>Why Skyhop</span>
+      <h2 class="disp">Easy to start,<br>hard to stop.</h2>
     </div>
-    <div>Made in Stockholm. © 2026 Dahl Industries AB.</div>
-  </footer>
+    <p class="mono" style="max-width:26ch;color:var(--mute)">Built for a calm minute — or one more best-beating run.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="n">01</span><h3>Tilt to steer</h3><p><span class="tag">Twill hops on their own — you just steer.</span> Tilt your iPhone or drag a thumb to land each bounce on the next platform.</p></div>
+    <div class="card"><span class="n">02</span><h3>A tower of surprises</h3><p>Leaf pads, mushroom springs that launch you sky-high, drifting dandelion seeds, and brittle twigs that snap under your feet.</p></div>
+    <div class="card"><span class="n">03</span><h3>Dodge the bugs</h3><p>Bramble-bugs creep across your path as you climb. Slip past them — or bop one from above for a little boost.</p></div>
+    <div class="card"><span class="n">04</span><h3>The sky opens up</h3><p>The world cools from soft morning mist into clear high blue, and the distant canopy falls away below you.</p></div>
+    <div class="card"><span class="n">05</span><h3>Chase your best</h3><p><span class="tag">Every metre pushes your best height further.</span> A personal record only you can beat — then hop again.</p></div>
+    <div class="card"><span class="n">06</span><h3>Calm &amp; private</h3><p><span class="tag">Fully offline.</span> No accounts, no ads, no tracking, no data collection. Everything stays on your device.</p></div>
+  </div>
+</section>
+
+<section class="gal pad">
+  <span class="label mono"><span class="dot"></span>In the game</span>
+  <div class="strip">
+    <img src="/skyhop/shots/menu.jpg" alt="Title screen with Twill" loading="lazy">
+    <img src="/skyhop/shots/play.jpg" alt="Climbing the tower of leaves" loading="lazy">
+    <img src="/skyhop/shots/over.jpg" alt="A new best height" loading="lazy">
+  </div>
+</section>
+
+<footer class="pad">
+  <div class="top">
+    <h2>Climb the<br>canopy<i>.</i></h2>
+    <a class="cta" href="https://apps.apple.com/app/id6788344684" style="background:var(--green)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;width:19px;height:19px"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+      Download on the App Store
+    </a>
+  </div>
+  <div class="links mono" style="margin-top:40px">
+    <a href="/skyhop/support">Support</a>
+    <a href="/skyhop/privacy">Privacy</a>
+    <a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a>
+    <a href="/">dahlindustries.se</a>
+  </div>
+  <div class="fine">
+    <span>© 2026 Dahl Industries AB · Stockholm, Sweden</span>
+    <span>An original game — characters, art and code made in-house.</span>
+  </div>
+</footer>
+
 </body>
 </html>
+
+<!-- skyhop landing v1 -->
