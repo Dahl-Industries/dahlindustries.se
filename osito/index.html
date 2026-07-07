@@ -1,154 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Osito — Learn 15 Languages, Offline | Dahl Industries</title>
-<meta name="description" content="Osito is the warm, offline way to learn 15 languages — Spanish, French, Japanese, Korean and more. Spaced-repetition review, native audio and a honey-bear game. No ads, no subscription, no account.">
+<meta name="description" content="Osito: build real vocabulary in 15 languages with spaced-repetition review, audio on every word and a honey-bear game. Free, private and 100% offline — no ads, no subscription, no account.">
 <link rel="canonical" href="https://dahlindustries.se/osito">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F0A21F">
 <meta property="og:title" content="Osito — Learn 15 languages, offline">
-<meta property="og:description" content="Spanish, French, Japanese, Korean & 11 more. Spaced repetition, native audio, no ads, no subscription. 100% offline.">
+<meta property="og:description" content="Spanish, French, Japanese, Korean & 11 more. Spaced repetition, audio on every word, a honey-bear game. Free, private, 100% offline.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://dahlindustries.se/osito/icon.png">
+<meta name="theme-color" content="#B96C09">
+<link rel="icon" href="/osito/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#2A1B08; --muted:#7A6A54; --line:#EADFC8; --honey:#F0A21F; --deep:#D07E06; --cream:#FBF4E4; --card:#FFFFFF; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--cream); color:var(--ink);
-         font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  a { color:var(--deep); text-decoration:none; }
-  .wrap { max-width:1000px; margin:0 auto; padding:0 22px; }
+:root{
+  --paper:#ECE7DD; --paper2:#E4DED0; --ink:#1B1206; --ink2:#3C2E1A; --mute:#8A7A5E;
+  --hair:rgba(27,18,6,.17); --accent:#F0A21F;
+  --brand:#B96C09; --brand-deep:#231705; --gold:#F0A21F;
+  --disp:'Archivo',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --pad:clamp(20px,4.5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--brand-deep)}
+.pad{padding-left:var(--pad);padding-right:var(--pad)}
+.mono{font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.09em;text-transform:uppercase}
+.label{display:inline-flex;align-items:center;gap:11px;color:var(--mute)}
+.label .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.55}}
+.disp{font-weight:800;font-stretch:115%;letter-spacing:-.025em;line-height:.9;text-transform:uppercase}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(27,18,6,.11) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
 
-  /* Hero */
-  .hero { text-align:center; padding:76px 22px 60px;
-          background:
-            radial-gradient(1200px 520px at 50% -10%, #FFD873 0%, #F0A21F 42%, #C9760A 100%);
-          color:#fff; position:relative; overflow:hidden; }
-  .hero::after { content:""; position:absolute; inset:0; opacity:.16; pointer-events:none;
-      background-image:
-        radial-gradient(circle at 12px 7px, #fff 2px, transparent 2.5px),
-        radial-gradient(circle at 36px 28px, #fff 2px, transparent 2.5px);
-      background-size:48px 42px; }
-  .hero > * { position:relative; z-index:1; }
-  .badge { width:96px; height:96px; border-radius:26px; background:#fff;
-           display:flex; align-items:center; justify-content:center; margin:0 auto 22px;
-           box-shadow:0 14px 34px rgba(120,66,4,.34); }
-  .badge svg { width:66px; height:66px; }
-  .hero h1 { font-size:clamp(34px,6vw,58px); margin:0 0 10px; letter-spacing:-0.03em;
-             text-shadow:0 3px 14px rgba(120,60,0,.28); }
-  .hero p { font-size:clamp(17px,2.4vw,22px); margin:0 auto 28px; max-width:620px; opacity:.97; }
-  .cta { display:inline-flex; gap:10px; align-items:center; background:#2A1B08; color:#fff;
-         font-weight:700; padding:15px 26px; border-radius:15px; font-size:17px;
-         box-shadow:0 10px 26px rgba(0,0,0,.22); }
-  .cta:hover { transform:translateY(-1px); }
-  .note { display:block; margin-top:14px; font-size:14px; opacity:.9; }
+/* nav */
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;height:70px;
+  padding:0 var(--pad);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--paper) 84%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav .brand{font-weight:800;font-stretch:110%;font-size:clamp(14px,1.2vw,16px);letter-spacing:-.01em;text-transform:uppercase}
+nav .brand i{color:var(--accent);font-style:normal}
+nav .back{color:var(--mute)}
+nav .back:hover{color:var(--ink)}
 
-  /* Sections */
-  section { padding:56px 0; }
-  h2.title { text-align:center; font-size:clamp(24px,3.4vw,32px); margin:0 0 6px; letter-spacing:-0.02em; }
-  .lede { text-align:center; color:var(--muted); max-width:640px; margin:0 auto 34px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
-  .feature { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:24px; }
-  .feature .ic { font-size:30px; }
-  .feature h3 { margin:12px 0 6px; font-size:18px; }
-  .feature p { margin:0; color:var(--muted); font-size:15.5px; }
+/* hero */
+.hero{position:relative;padding-top:clamp(56px,9vw,120px);padding-bottom:clamp(40px,6vw,76px);overflow:hidden}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero .icon{width:clamp(84px,9vw,116px);height:clamp(84px,9vw,116px);border-radius:24px;box-shadow:0 18px 44px rgba(120,66,4,.30);margin-bottom:26px}
+.hero h1{font-size:clamp(52px,9vw,128px);margin:14px 0 0}
+.hero h1 .y{color:var(--brand)}
+.hero .lede{max-width:34ch;margin-top:22px;font-size:clamp(16px,1.5vw,20px);line-height:1.5;color:var(--ink2);font-stretch:100%;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:30px;background:var(--ink);color:var(--paper);
+  font-weight:700;font-stretch:110%;text-transform:uppercase;letter-spacing:.02em;font-size:15px;
+  padding:15px 24px;border-radius:14px;transition:transform .25s ease,background .25s ease}
+.cta:hover{transform:translateY(-2px);background:var(--brand)}
+.cta svg{width:19px;height:19px;fill:currentColor}
+.specs{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.specs .s{display:flex;flex-direction:column;gap:2px}
+.specs .s b{font-size:clamp(24px,2.6vw,34px);font-weight:800;font-stretch:112%;letter-spacing:-.02em}
+.specs .s span{color:var(--mute)}
 
-  .langs { background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:820px; margin:0 auto; }
-  .chip { background:var(--cream); border:1px solid var(--line); border-radius:999px;
-          padding:9px 16px; font-weight:600; font-size:15px; }
-  .chip small { color:var(--muted); font-weight:500; }
+/* phone showcase */
+.showcase{position:relative;display:flex;justify-content:center}
+.showcase .frame{width:min(74%,300px);border-radius:34px;box-shadow:0 30px 70px rgba(120,66,4,.28);border:1px solid var(--hair)}
 
-  .foot { text-align:center; color:var(--muted); font-size:14px; padding:44px 22px 60px; }
-  .foot a { margin:0 8px; }
-  .foot .co { margin-top:16px; font-size:13px; }
+/* marquee band */
+.band{background:var(--brand-deep);color:var(--paper);overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000}
+.band .row{display:flex;gap:40px;white-space:nowrap;padding:16px 0;animation:scroll 32s linear infinite;font-weight:800;font-stretch:115%;text-transform:uppercase;font-size:clamp(18px,2vw,26px);letter-spacing:-.01em}
+.band .row span{display:inline-flex;align-items:center;gap:40px}
+.band .row span::after{content:"";width:9px;height:9px;background:var(--gold);border-radius:50%}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* features */
+.feat{padding:clamp(56px,8vw,110px) 0}
+.feat .head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px}
+.feat h2{font-size:clamp(38px,6vw,86px);margin-top:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:clamp(34px,5vw,60px)}
+.card{background:var(--paper);padding:clamp(26px,3vw,40px);min-height:230px;display:flex;flex-direction:column;transition:background .3s ease}
+.card:hover{background:var(--paper2)}
+.card .n{font-family:var(--mono);color:var(--mute);font-size:12px;letter-spacing:.06em}
+.card h3{font-size:clamp(22px,2.2vw,30px);font-weight:800;font-stretch:112%;letter-spacing:-.02em;text-transform:uppercase;margin:auto 0 10px;line-height:.98}
+.card p{color:var(--ink2);line-height:1.5;font-weight:500}
+.card .tag{color:var(--brand)}
+
+/* gallery */
+.gal{padding-bottom:clamp(56px,8vw,110px)}
+.gal .strip{display:flex;gap:clamp(16px,2vw,26px);overflow-x:auto;padding:6px 0 18px;scroll-snap-type:x mandatory}
+.gal .strip img{width:min(62vw,260px);flex:none;border-radius:22px;scroll-snap-align:center;box-shadow:0 16px 40px rgba(120,66,4,.16);border:1px solid var(--hair)}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:clamp(48px,7vw,92px) 0 40px}
+footer .top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+footer h2{font-size:clamp(34px,5vw,72px);font-weight:800;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em;line-height:.9}
+footer h2 i{color:var(--accent);font-style:normal}
+footer .links{display:flex;gap:26px;flex-wrap:wrap}
+footer .links a{color:rgba(236,231,221,.7);border-bottom:1px solid transparent;padding-bottom:2px}
+footer .links a:hover{color:var(--paper);border-color:var(--accent)}
+footer .fine{margin-top:clamp(40px,6vw,70px);padding-top:26px;border-top:1px solid rgba(236,231,221,.18);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:rgba(236,231,221,.55);font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+
+@media(max-width:820px){
+  .hero .grid{grid-template-columns:1fr;gap:28px}
+  .showcase{display:none}          /* lead with the headline on mobile */
+  .hero{padding-top:clamp(40px,8vw,90px)}
+  .hero h1{font-size:clamp(42px,12vw,70px);line-height:.94}
+}
 </style>
 </head>
 <body>
 
-  <header class="hero">
-    <div class="badge" aria-hidden="true">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="26" r="12" fill="#8A5A2B"/>
-        <circle cx="70" cy="26" r="12" fill="#8A5A2B"/>
-        <circle cx="50" cy="52" r="30" fill="#A66A32"/>
-        <circle cx="50" cy="60" r="16" fill="#F3E1C2"/>
-        <circle cx="39" cy="47" r="4.5" fill="#2A1B08"/>
-        <circle cx="61" cy="47" r="4.5" fill="#2A1B08"/>
-        <circle cx="50" cy="58" r="4" fill="#2A1B08"/>
-      </svg>
-    </div>
-    <h1>Learn 15 languages,<br>a little at a time.</h1>
-    <p>Osito is the warm, offline way to build real vocabulary — with spaced-repetition
-       review, audio on every word, and a friendly honey bear cheering you on.</p>
-    <a class="cta" href="https://apps.apple.com/app/id6787548266">Download on the App Store</a>
-    <span class="note">Free · No ads · No subscription · Works 100% offline</span>
-  </header>
+<nav class="pad">
+  <a class="brand" href="/">DAHL<i>.</i>INDUSTRIES</a>
+  <a class="back mono" href="/">← All projects</a>
+</nav>
 
-  <section class="wrap">
-    <h2 class="title">Why Osito</h2>
-    <p class="lede">Everything you need to actually remember a language — and nothing that
-       gets in the way.</p>
-    <div class="grid">
-      <div class="feature">
-        <div class="ic">📶</div>
-        <h3>100% offline</h3>
-        <p>Every course, lesson and game lives on your device. Learn on a plane, on the
-           metro, or anywhere with no signal.</p>
-      </div>
-      <div class="feature">
-        <div class="ic">🍯</div>
-        <h3>Remember every word</h3>
-        <p>Proven spaced repetition (SM-2) brings words back right before you'd forget
-           them, so vocabulary sticks for good.</p>
-      </div>
-      <div class="feature">
-        <div class="ic">🎧</div>
-        <h3>Practice four ways</h3>
-        <p>Match, choose, type and listen — with natural pronunciation on every card, plus
-           the Honey Run mini-game that doubles as review.</p>
-      </div>
-      <div class="feature">
-        <div class="ic">🔒</div>
-        <h3>Private by design</h3>
-        <p>No account, no ads, no tracking, no data collection. What you learn stays on
-           your device — always.</p>
+<header class="hero pad">
+  <div class="dots"></div>
+  <div class="grid">
+    <div>
+      <span class="label mono"><span class="dot"></span>iOS · Education · Languages</span>
+      <img class="icon" src="/osito/icon.png" alt="Osito" width="116" height="116">
+      <h1 class="disp">Learn 15<br>langua<span class="y">ges</span>.</h1>
+      <p class="lede">Build real vocabulary with spaced-repetition review, audio on every word and a friendly honey bear. Free, private and 100% offline.</p>
+      <a class="cta" href="https://apps.apple.com/app/id6787548266">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+        Get it on the App Store
+      </a>
+      <div class="specs">
+        <div class="s"><b>15</b><span class="mono">languages</span></div>
+        <div class="s"><b>4</b><span class="mono">ways to practice</span></div>
+        <div class="s"><b>100%</b><span class="mono">offline</span></div>
+        <div class="s"><b>0</b><span class="mono">ads · tracking</span></div>
       </div>
     </div>
-  </section>
-
-  <section class="langs">
-    <div class="wrap">
-      <h2 class="title">Fifteen languages</h2>
-      <p class="lede">Latin and non-Latin scripts alike — with romanization on every card
-         for Japanese, Korean, Chinese, Russian, Arabic and Hindi.</p>
-      <div class="chips">
-        <span class="chip">🇪🇸 Spanish <small>Español</small></span>
-        <span class="chip">🇫🇷 French <small>Français</small></span>
-        <span class="chip">🇩🇪 German <small>Deutsch</small></span>
-        <span class="chip">🇮🇹 Italian <small>Italiano</small></span>
-        <span class="chip">🇵🇹 Portuguese <small>Português</small></span>
-        <span class="chip">🇳🇱 Dutch <small>Nederlands</small></span>
-        <span class="chip">🇸🇪 Swedish <small>Svenska</small></span>
-        <span class="chip">🇵🇱 Polish <small>Polski</small></span>
-        <span class="chip">🇹🇷 Turkish <small>Türkçe</small></span>
-        <span class="chip">🇷🇺 Russian <small>Русский</small></span>
-        <span class="chip">🇯🇵 Japanese <small>日本語</small></span>
-        <span class="chip">🇰🇷 Korean <small>한국어</small></span>
-        <span class="chip">🇨🇳 Chinese <small>中文</small></span>
-        <span class="chip">🇸🇦 Arabic <small>العربية</small></span>
-        <span class="chip">🇮🇳 Hindi <small>हिन्दी</small></span>
-      </div>
+    <div class="showcase">
+      <img class="frame" src="/osito/shots/home.jpg" alt="Osito home screen with the Honey Pot review and honeycomb lessons" loading="lazy">
     </div>
-  </section>
+  </div>
+</header>
 
-  <footer class="foot">
-    <a href="/osito/support">Support</a> ·
-    <a href="/osito/privacy">Privacy</a> ·
+<div class="band" aria-hidden="true">
+  <div class="row">
+    <span>Español</span><span>Français</span><span>Deutsch</span><span>日本語</span><span>한국어</span><span>中文</span><span>العربية</span><span>हिन्दी</span><span>Italiano</span><span>Português</span><span>Русский</span><span>Svenska</span>
+    <span>Español</span><span>Français</span><span>Deutsch</span><span>日本語</span><span>한국어</span><span>中文</span><span>العربية</span><span>हिन्दी</span><span>Italiano</span><span>Português</span><span>Русский</span><span>Svenska</span>
+  </div>
+</div>
+
+<section class="feat pad">
+  <div class="head">
+    <div>
+      <span class="label mono"><span class="dot"></span>Why Osito</span>
+      <h2 class="disp">Learn smart,<br>remember more.</h2>
+    </div>
+    <p class="mono" style="max-width:26ch;color:var(--mute)">Built to make words stick — not to sell your data.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="n">01</span><h3>15 languages</h3><p>Spanish, French, German, Italian, Portuguese, Dutch, Swedish, Polish, Turkish, Russian, Japanese, Korean, Chinese, Arabic &amp; Hindi. <span class="tag">Romanization on every non-Latin card.</span></p></div>
+    <div class="card"><span class="n">02</span><h3>Remember every word</h3><p><span class="tag">Spaced repetition (SM-2)</span> brings words back right before you'd forget them. Due words wait in your Honey Pot for a quick daily review.</p></div>
+    <div class="card"><span class="n">03</span><h3>Practice four ways</h3><p>Match, choose, type and listen — with natural pronunciation on every card, so each word locks in from every angle.</p></div>
+    <div class="card"><span class="n">04</span><h3>Play to learn</h3><p><span class="tag">Honey Run</span> — a quick game where you steer Osito into the correct translation. Playing literally counts as review.</p></div>
+    <div class="card"><span class="n">05</span><h3>Build a habit</h3><p>Collect honey drops, fill honeycombs and keep your streak alive. Small wins that make it easy to come back tomorrow.</p></div>
+    <div class="card"><span class="n">06</span><h3>Fully private</h3><p><span class="tag">Works 100% offline.</span> No account, no ads, no tracking, no data collection — everything stays on your device.</p></div>
+  </div>
+</section>
+
+<section class="gal pad">
+  <span class="label mono"><span class="dot"></span>In the app</span>
+  <div class="strip">
+    <img src="/osito/shots/home.jpg" alt="Home screen with Honey Pot review" loading="lazy">
+    <img src="/osito/shots/langs.jpg" alt="Choose from 15 languages" loading="lazy">
+    <img src="/osito/shots/match.jpg" alt="Match-the-pairs exercise" loading="lazy">
+    <img src="/osito/shots/complete.jpg" alt="Lesson complete with streak and honey drops" loading="lazy">
+    <img src="/osito/shots/run.jpg" alt="Honey Run — learn by playing" loading="lazy">
+  </div>
+</section>
+
+<footer class="pad">
+  <div class="top">
+    <h2>Start<br>learning<i>.</i></h2>
+    <a class="cta" href="https://apps.apple.com/app/id6787548266" style="background:var(--brand)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;width:19px;height:19px"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+      Get it on the App Store
+    </a>
+  </div>
+  <div class="links mono" style="margin-top:40px">
+    <a href="/osito/support">Support</a>
+    <a href="/osito/privacy">Privacy</a>
     <a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a>
-    <div class="co">© 2026 Dahl Industries · Stockholm, Sweden · <a href="https://dahlindustries.se">dahlindustries.se</a><br>
-      Osito is an independent app; "Osito" is Spanish for "little bear."</div>
-  </footer>
+    <a href="/">dahlindustries.se</a>
+  </div>
+  <div class="fine">
+    <span>© 2026 Dahl Industries · Stockholm, Sweden</span>
+    <span>Independent language-learning app · "Osito" = little bear.</span>
+  </div>
+</footer>
 
 </body>
 </html>
+
+<!-- osito landing v2 — Dahl Industries editorial framework -->
