@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schack — Beautiful chess for iOS | Dahl Industries</title>
+<meta name="description" content="Schack: a beautiful offline chess app for iOS. Play 12 rated bots from 350 to 2300, solve machine-verified tactics, learn from 18 lessons, and play friends on Game Center. A hand-drawn wood set — no ads, no tracking.">
+<link rel="canonical" href="https://dahlindustries.se/schack">
+<meta property="og:title" content="Schack — Beautiful chess for iOS">
+<meta property="og:description" content="12 rated bots, verified puzzles, 18 lessons and Game Center play — on a hand-drawn wood board. Fully offline, no ads, no tracking.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://dahlindustries.se/schack/icon.png">
+<meta name="theme-color" content="#1A130B">
+<link rel="icon" href="/schack/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ECE6DA; --paper2:#E3DBCB; --ink:#1A130B; --ink2:#3A2C1B; --mute:#8A7658;
+  --hair:rgba(26,19,11,.18); --accent:#FF4400;
+  --walnut:#8A5A2E; --espresso:#1A130B; --gold:#C08A3E;
+  --disp:'Archivo',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --pad:clamp(20px,4.5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--paper)}
+.pad{padding-left:var(--pad);padding-right:var(--pad)}
+.mono{font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.09em;text-transform:uppercase}
+.label{display:inline-flex;align-items:center;gap:11px;color:var(--mute)}
+.label .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.55}}
+.disp{font-weight:800;font-stretch:115%;letter-spacing:-.025em;line-height:.9;text-transform:uppercase}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(26,19,11,.12) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+
+/* nav */
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;height:70px;
+  padding:0 var(--pad);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--paper) 84%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav .brand{font-weight:800;font-stretch:110%;font-size:clamp(14px,1.2vw,16px);letter-spacing:-.01em;text-transform:uppercase}
+nav .brand i{color:var(--accent);font-style:normal}
+nav .back{color:var(--mute)}
+nav .back:hover{color:var(--ink)}
+
+/* hero */
+.hero{position:relative;padding-top:clamp(56px,9vw,120px);padding-bottom:clamp(40px,6vw,76px);overflow:hidden}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero .icon{width:clamp(84px,9vw,116px);height:clamp(84px,9vw,116px);border-radius:24px;box-shadow:0 18px 44px rgba(40,26,12,.34);margin-bottom:26px}
+.hero h1{font-size:clamp(52px,9vw,128px);margin:14px 0 0}
+.hero h1 .y{color:var(--walnut)}
+.hero .lede{max-width:34ch;margin-top:22px;font-size:clamp(16px,1.5vw,20px);line-height:1.5;color:var(--ink2);font-stretch:100%;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:30px;background:var(--ink);color:var(--paper);
+  font-weight:700;font-stretch:110%;text-transform:uppercase;letter-spacing:.02em;font-size:15px;
+  padding:15px 24px;border-radius:14px;transition:transform .25s ease,background .25s ease}
+.cta:hover{transform:translateY(-2px);background:var(--walnut)}
+.cta svg{width:19px;height:19px;fill:currentColor}
+.cta.soon{background:var(--paper2);color:var(--mute);border:1px solid var(--hair);cursor:default}
+.cta.soon:hover{transform:none;background:var(--paper2)}
+.specs{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.specs .s{display:flex;flex-direction:column;gap:2px}
+.specs .s b{font-size:clamp(24px,2.6vw,34px);font-weight:800;font-stretch:112%;letter-spacing:-.02em}
+.specs .s span{color:var(--mute)}
+
+/* phone showcase */
+.showcase{position:relative;display:flex;justify-content:center}
+.showcase .frame{width:min(74%,300px);border-radius:34px;box-shadow:0 30px 70px rgba(40,26,12,.38);border:1px solid var(--hair)}
+
+/* marquee band */
+.band{background:var(--espresso);color:var(--paper);overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000}
+.band .row{display:flex;gap:40px;white-space:nowrap;padding:16px 0;animation:scroll 26s linear infinite;font-weight:800;font-stretch:115%;text-transform:uppercase;font-size:clamp(18px,2vw,26px);letter-spacing:-.01em}
+.band .row span{display:inline-flex;align-items:center;gap:40px}
+.band .row span::after{content:"";width:9px;height:9px;background:var(--gold);border-radius:50%}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* features */
+.feat{padding:clamp(56px,8vw,110px) 0}
+.feat .head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px}
+.feat h2{font-size:clamp(38px,6vw,86px);margin-top:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:clamp(34px,5vw,60px)}
+.card{background:var(--paper);padding:clamp(26px,3vw,40px);min-height:230px;display:flex;flex-direction:column;transition:background .3s ease}
+.card:hover{background:var(--paper2)}
+.card .n{font-family:var(--mono);color:var(--mute);font-size:12px;letter-spacing:.06em}
+.card h3{font-size:clamp(22px,2.2vw,30px);font-weight:800;font-stretch:112%;letter-spacing:-.02em;text-transform:uppercase;margin:auto 0 10px;line-height:.98}
+.card p{color:var(--ink2);line-height:1.5;font-weight:500}
+.card .tag{color:var(--walnut)}
+
+/* gallery */
+.gal{padding-bottom:clamp(56px,8vw,110px)}
+.gal .strip{display:flex;gap:clamp(16px,2vw,26px);overflow-x:auto;padding:6px 0 18px;scroll-snap-type:x mandatory}
+.gal .strip img{width:min(62vw,270px);flex:none;border-radius:22px;scroll-snap-align:center;box-shadow:0 16px 40px rgba(40,26,12,.20);border:1px solid var(--hair)}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:clamp(48px,7vw,92px) 0 40px}
+footer .top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+footer h2{font-size:clamp(34px,5vw,72px);font-weight:800;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em;line-height:.9}
+footer h2 i{color:var(--accent);font-style:normal}
+footer .links{display:flex;gap:26px;flex-wrap:wrap}
+footer .links a{color:rgba(236,230,218,.7);border-bottom:1px solid transparent;padding-bottom:2px}
+footer .links a:hover{color:var(--paper);border-color:var(--accent)}
+footer .fine{margin-top:clamp(40px,6vw,70px);padding-top:26px;border-top:1px solid rgba(236,230,218,.18);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:rgba(236,230,218,.55);font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+
+@media(max-width:820px){
+  .hero .grid{grid-template-columns:1fr;gap:28px}
+  .showcase{display:none}          /* skip the big hero screenshot on mobile — lead with the headline */
+  .hero{padding-top:clamp(40px,8vw,90px)}
+  .hero h1{font-size:clamp(40px,11.5vw,66px);line-height:.94}
+}
+</style>
+</head>
+<body>
+
+<nav class="pad">
+  <a class="brand" href="/">DAHL<i>.</i>INDUSTRIES</a>
+  <a class="back mono" href="/">← All projects</a>
+</nav>
+
+<header class="hero pad">
+  <div class="dots"></div>
+  <div class="grid">
+    <div>
+      <span class="label mono"><span class="dot"></span>iOS · Chess · Game Center</span>
+      <img class="icon" src="/schack/icon.png" alt="Schack" width="116" height="116">
+      <h1 class="disp">Play<br>real<span class="y"> chess</span>.</h1>
+      <p class="lede">Twelve rated opponents, machine-verified puzzles and eighteen lessons — on a hand-drawn wood board. Fully offline. No ads, no tracking.</p>
+      <span class="cta soon" role="text">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+        Coming to the App Store
+      </span>
+      <div class="specs">
+        <div class="s"><b>12</b><span class="mono">rated bots</span></div>
+        <div class="s"><b>58</b><span class="mono">puzzles</span></div>
+        <div class="s"><b>18</b><span class="mono">lessons</span></div>
+        <div class="s"><b>0</b><span class="mono">ads · tracking</span></div>
+      </div>
+    </div>
+    <div class="showcase">
+      <img class="frame" src="/schack/shots/home.jpg" alt="Schack — home board replaying a classic game" loading="lazy">
+    </div>
+  </div>
+</header>
+
+<div class="band" aria-hidden="true">
+  <div class="row">
+    <span>Openings</span><span>Tactics</span><span>Endgames</span><span>Puzzles</span><span>Ranked</span><span>Online</span>
+    <span>Openings</span><span>Tactics</span><span>Endgames</span><span>Puzzles</span><span>Ranked</span><span>Online</span>
+  </div>
+</div>
+
+<section class="feat pad">
+  <div class="head">
+    <div>
+      <span class="label mono"><span class="dot"></span>Why Schack</span>
+      <h2 class="disp">Deep chess,<br>quietly made.</h2>
+    </div>
+    <p class="mono" style="max-width:26ch;color:var(--mute)">Built for the game — not to sell your data.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="n">01</span><h3>Twelve rated rivals</h3><p><span class="tag">From Ebba at 350 to Sigrid at 2300.</span> Every bot is the same engine tuned to feel human — fallible, varied, and never cheating.</p></div>
+    <div class="card"><span class="n">02</span><h3>Verified tactics</h3><p>Puzzles mined from real games and <span class="tag">machine-checked, so every solution is sound.</span> A daily puzzle, a puzzle rating and streaks to keep.</p></div>
+    <div class="card"><span class="n">03</span><h3>Learn from move one</h3><p>Eighteen interactive lessons on the real board — from how the pieces move to mating patterns — with a hint whenever you're stuck.</p></div>
+    <div class="card"><span class="n">04</span><h3>Ranked &amp; online</h3><p><span class="tag">Real Elo that climbs as you win.</span> Challenge friends turn-by-turn over Game Center, with a global leaderboard.</p></div>
+    <div class="card"><span class="n">05</span><h3>A set worth keeping</h3><p>A hand-drawn Staunton wood set in cream maple and walnut, with tactile piece animations and haptics on every move, capture and check.</p></div>
+    <div class="card"><span class="n">06</span><h3>Completely private</h3><p><span class="tag">Works fully offline.</span> No account, no ads, no tracking, no data collection. Everything stays on your device.</p></div>
+  </div>
+</section>
+
+<section class="gal pad">
+  <span class="label mono"><span class="dot"></span>In the app</span>
+  <div class="strip">
+    <img src="/schack/shots/home.jpg" alt="Home board replaying the Opera Game" loading="lazy">
+    <img src="/schack/shots/game.jpg" alt="A rated game against a bot" loading="lazy">
+    <img src="/schack/shots/puzzle.jpg" alt="A mate-in-one tactics puzzle" loading="lazy">
+    <img src="/schack/shots/bots.jpg" alt="The bot roster, 350 to 2300" loading="lazy">
+    <img src="/schack/shots/learn.jpg" alt="Interactive lessons" loading="lazy">
+  </div>
+</section>
+
+<footer class="pad">
+  <div class="top">
+    <h2>Your<br>move<i>.</i></h2>
+    <span class="cta soon" role="text" style="background:var(--walnut);color:var(--paper);border:0">
+      <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;width:19px;height:19px"><path d="M16.36 12.9c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.14 9.14.76 1.1 1.66 2.34 2.85 2.29 1.14-.05 1.57-.74 2.95-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.63zM14.1 6.13c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.96 2.81 1.02.08 2.06-.52 2.69-1.28z"/></svg>
+      Coming to the App Store
+    </span>
+  </div>
+  <div class="links mono" style="margin-top:40px">
+    <a href="/schack/support">Support</a>
+    <a href="/schack/privacy">Privacy</a>
+    <a href="mailto:info@dahlindustries.se">info@dahlindustries.se</a>
+    <a href="/">dahlindustries.se</a>
+  </div>
+  <div class="fine">
+    <span>© 2026 Dahl Industries AB · Stockholm, Sweden</span>
+    <span>A game by Dahl Industries.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
+<!-- schack landing v1 -->
